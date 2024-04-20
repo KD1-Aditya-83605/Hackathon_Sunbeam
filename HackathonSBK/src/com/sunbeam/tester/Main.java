@@ -1,5 +1,6 @@
 package com.sunbeam.tester;
 
+import java.awt.Choice;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -87,6 +88,8 @@ public class Main {
 		
 		//After the user name and password is inserted and checked in DB where the values are present after that this function is called
 		public static void AfterSuccessfulLoginBlogingPage(Scanner sc, int userID) {
+			int choice;
+			do {
 			System.out.println("Welcome <user>");
 			System.out.println("1. Add Category");
 			System.out.println("2. Show Categories");
@@ -97,7 +100,7 @@ public class Main {
 			System.out.println("7. Delete Blog");
 			System.out.println("8. Logout");
 			
-			int choice = sc.nextInt();
+			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
 			{
@@ -264,17 +267,11 @@ public class Main {
 				
 			}
 				
-				break;
-			case 8:
-			{
-				
-			}
-				
-				break;
+			
 				
 			default:
 				break;
-			}
+			}}while(choice!=8);
 		}
 		
 	
@@ -300,7 +297,7 @@ public class Main {
 			int choice;
 			do {
 				choice = mainMenu(sc);
-			} while (choice != 0);
+			} while (choice != 8);
 		}
 
 	}
