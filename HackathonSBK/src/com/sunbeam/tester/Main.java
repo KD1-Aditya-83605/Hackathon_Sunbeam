@@ -1,11 +1,16 @@
 package com.sunbeam.tester;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sunbeam.dao.BlogsDao;
+import com.sunbeam.dao.CategoryDao;
+import com.sunbeam.dao.GetCategoriesdao;
 import com.sunbeam.dao.RegistrationDao;
 import com.sunbeam.dao.Userdao;
 import com.sunbeam.entity.Blogs;
+import com.sunbeam.entity.Categories;
 import com.sunbeam.entity.User;
 
 public class Main {
@@ -96,7 +101,17 @@ public class Main {
 			switch (choice) {
 			case 1:
 			{
-				System.out.println("Hello from after login");
+				Categories categories = new Categories();
+				categories.acceptData();
+				
+				try {
+					CategoryDao categoryDao = new CategoryDao();
+					categoryDao.createCategory(categories);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				
 			}
 				
@@ -104,12 +119,40 @@ public class Main {
 
 			case 2:
 			{
+				try {
+					GetCategoriesdao categoriesdao = new GetCategoriesdao();
+					ArrayList<Categories> list= 	  categoriesdao.getCatDao();
+					
+					for (Categories categories : list) {
+						System.out.println(categories);
+						
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 				
 				break;
 			case 3:
 			{
+				try {
+					BlogsDao blogsDao = new BlogsDao();
+					ArrayList<Blogs> list= 	  blogsDao.displayAllBlogs();
+					
+					for (Blogs blogs : list) {
+						
+						System.out.println(blogs);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 				
 			}
 				
@@ -118,25 +161,106 @@ public class Main {
 			{
 				Blogs blogs = new Blogs();
 				blogs.acceptData();
-				blogs.setId(userID);
+				blogs.setUser_id(userID);
+				
+				
+				System.out.println("Which category your blog fits (enter id)?");
+				try {
+					GetCategoriesdao dCategoriesdao = new GetCategoriesdao();
+				ArrayList<Categories> list= 	  dCategoriesdao.getCatDao();
+				
+				
+				for (Categories categories : list) {
+					System.out.println(categories);
+					
+				}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int idCat = sc.nextInt();
+				blogs.setCategory_d(idCat);
+				
+				try {
+					BlogsDao  blogsDao = new BlogsDao();
+					blogsDao.insertIntoBlog(blogs);
+					System.out.println("added blog");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				
+				
+				
 				
 			}
 				
 				break;
 			case 5:
 			{
+				System.out.println("Enter id which you want to update blog for:");
+				int id = sc.nextInt();
+				
+				System.out.println("Enter the contents for updating: ");
+				String content =sc.next();
+				
+				try {
+					BlogsDao blogsDao = new BlogsDao();
+					
+					blogsDao.editBlog(id, content);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				
 				
 			}
 				
 				break;
 			case 6:
 			{
+				System.out.println("Enter blog id to serach for: ");
+				int id = sc.nextInt();
+				try {
+					BlogsDao blogsDao = new BlogsDao();
+					ArrayList<Blogs> blogs =    blogsDao.serachBlog(id);
+					for (Blogs blogs2 : blogs) {
+						System.out.println(blogs2);
+						
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 				
 				break;
 			case 7:
 			{
+				
+				System.out.println("Enter blog id to delete for: ");
+				 int id  = sc.nextInt();
+				
+				BlogsDao blogsDao;
+				try {
+					blogsDao = new BlogsDao();
+					blogsDao.removeBlog(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			
 				
 			}
 				

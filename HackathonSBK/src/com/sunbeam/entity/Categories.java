@@ -1,6 +1,8 @@
 package com.sunbeam.entity;
 
-public class Categories {
+import java.util.Scanner;
+
+public class Categories implements Acceptable {
 	
 	private int id;
 	private String title;
@@ -37,5 +39,17 @@ public class Categories {
 	public String toString() {
 		return "Categories [id=" + id + ", title=" + title + ", description=" + description + "]";
 	}
+	@Override
+	public void acceptData() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter title: ");
+		title = scanner.next();
+		System.out.println("Enter description: ");
+		description = scanner.next();
+		
+	}
+	
+
+	
 
 }

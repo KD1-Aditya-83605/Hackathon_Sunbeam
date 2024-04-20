@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 import com.sunbeam.dao.Userdao;
 
+
 public class Blogs  implements Acceptable{
 	
 	private int id;
 	private String title;
 	private String contents;
-	private Timestamp date;
+	private Timestamp created_time;
 	private int user_id;
 	private int category_d;
 	
@@ -22,7 +23,7 @@ public class Blogs  implements Acceptable{
 		this.id = id;
 		this.title = title;
 		this.contents = contents;
-		this.date = date;
+		this.created_time = date;
 		this.user_id = user_id;
 		this.category_d = category_d;
 	}
@@ -44,11 +45,11 @@ public class Blogs  implements Acceptable{
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public Date getDate() {
-		return date;
+	public Timestamp getDate() {
+		return created_time;
 	}
 	public void setDate(Timestamp date) {
-		this.date = date;
+		this.created_time = date;
 	}
 	public int getUser_id() {
 		return user_id;
@@ -64,19 +65,20 @@ public class Blogs  implements Acceptable{
 	}
 	@Override
 	public String toString() {
-		return "Blogs [id=" + id + ", title=" + title + ", contents=" + contents + ", date=" + date + ", user_id="
+		return "Blogs [id=" + id + ", title=" + title + ", contents=" + contents + ", date=" + created_time + ", user_id="
 				+ user_id + ", category_d=" + category_d + "]";
 	}
 	@Override
 	public void acceptData() {
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter blog id: ");
+		id = scanner.nextInt();
 		System.out.println("Enter title: ");
 		title = scanner.next();
 		System.out.println("Enter contents: ");
 		contents = scanner.next();
-		System.out.println("");
-		date = new Timestamp(System.currentTimeMillis());
-		sout
+		created_time = new Timestamp(System.currentTimeMillis());
+		
 		
 	}
 
