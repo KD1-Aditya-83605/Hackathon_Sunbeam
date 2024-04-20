@@ -1,18 +1,23 @@
 package com.sunbeam.entity;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Scanner;
 
-public class Blogs {
+import com.sunbeam.dao.Userdao;
+
+public class Blogs  implements Acceptable{
+	
 	private int id;
 	private String title;
 	private String contents;
-	private Date date;
+	private Timestamp date;
 	private int user_id;
 	private int category_d;
 	
 	public Blogs() {
 		super();
 	}
-	public Blogs(int id, String title, String contents, Date date, int user_id, int category_d) {
+	public Blogs(int id, String title, String contents, Timestamp date, int user_id, int category_d) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -42,7 +47,7 @@ public class Blogs {
 	public Date getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public int getUser_id() {
@@ -61,6 +66,18 @@ public class Blogs {
 	public String toString() {
 		return "Blogs [id=" + id + ", title=" + title + ", contents=" + contents + ", date=" + date + ", user_id="
 				+ user_id + ", category_d=" + category_d + "]";
+	}
+	@Override
+	public void acceptData() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter title: ");
+		title = scanner.next();
+		System.out.println("Enter contents: ");
+		contents = scanner.next();
+		System.out.println("");
+		date = new Timestamp(System.currentTimeMillis());
+		sout
+		
 	}
 
 }

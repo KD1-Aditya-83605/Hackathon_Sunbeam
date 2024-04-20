@@ -4,11 +4,15 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.sunbeam.dao.RegistrationDao;
+import com.sunbeam.dao.Userdao;
+import com.sunbeam.entity.Blogs;
 import com.sunbeam.entity.User;
 
 public class Main {
 	
-	//For the Main Menu/First page of the Program... 
+	
+	
+		//For the Main Menu/First page of the Program... 
 		public static int mainMenu(Scanner sc)	 {
 			int choice;
 			System.out.println("Welcome to Blogging App");
@@ -20,12 +24,13 @@ public class Main {
 			switch (choice) {
 			case 0:
 				System.out.println("Thankyou for using our App");
-				return choice; // choice because I want to make the Menu driven cod continuous and this return choice will help me do so
+				return choice; 
 			case 1:
 				loginPage(sc);
 				return choice;
 			case 2:
 				registerUser();
+				
 				return choice;
 			default:
 				System.out.println("please Enter the valid Input");
@@ -42,29 +47,113 @@ public class Main {
 			System.out.print("Password : ");
 			String password = sc.next();
 			System.out.println();
-			checkForCharacter(sc);
-			checkForLoginDetails(sc, email, password);
+			checkForCharacterForLogin(sc, email, password);
 		}
 		
 		//To check the Line "Enter c to continue and e to exit from Application"
-		public static void  checkForCharacter(Scanner sc) {
+		public static void checkForCharacterForLogin(Scanner sc, String email, String password) {
 			System.out.println("Enter c to continue and e to exit from the app");
 			String character = sc.next();
-			if(character == "c") {
-				//TODO
+			if(character.equals("c")) {
+				ifCpressedInLogin(sc, email, password);
 			}
 			else if(character.equals("e")){
 				mainMenu(sc);
 			}
 			else {
 				System.out.println("Please Enter valid character");
-				checkForCharacter(sc);
+				checkForCharacterForLogin(sc, email, password);
 			}
 		}
 		
-		public static void checkForLoginDetails(Scanner sc, String email, String password) {
-			//For this we will be using jdbc
+		public static int ifCpressedInLogin(Scanner sc, String email, String password) {
+			int userID = -1;
+			try(Userdao ud = new Userdao()){
+				 userID = ud.checkForUserCreds(sc, email, password);	
+				AfterSuccessfulLoginBlogingPage(sc, userID);
+			}			
+			 catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return userID;
 		}
+		
+		//After the user name and password is inserted and checked in DB where the values are present after that this function is called
+		public static void AfterSuccessfulLoginBlogingPage(Scanner sc, int userID) {
+			System.out.println("Welcome <user>");
+			System.out.println("1. Add Category");
+			System.out.println("2. Show Categories");
+			System.out.println("3. All Blogs");
+			System.out.println("4. Add Blog");
+			System.out.println("5. Edit Blog");
+			System.out.println("6. Search Blog");
+			System.out.println("7. Delete Blog");
+			System.out.println("8. Logout");
+			
+			int choice = sc.nextInt();
+			switch (choice) {
+			case 1:
+			{
+				System.out.println("Hello from after login");
+				
+			}
+				
+				break;
+
+			case 2:
+			{
+				
+			}
+				
+				break;
+			case 3:
+			{
+				
+			}
+				
+				break;
+			case 4:
+			{
+				Blogs blogs = new Blogs();
+				blogs.acceptData();
+				blogs.setId(userID);
+				
+			}
+				
+				break;
+			case 5:
+			{
+				
+			}
+				
+				break;
+			case 6:
+			{
+				
+			}
+				
+				break;
+			case 7:
+			{
+				
+			}
+				
+				break;
+			case 8:
+			{
+				
+			}
+				
+				break;
+				
+			default:
+				break;
+			}
+		}
+		
+	
 		
 		public static void registerUser() {
 			try {
@@ -82,20 +171,6 @@ public class Main {
 			
 		}
 		
-		
-		
-		public static void AfterSuccessfulLogin() {
-			System.out.println("Welcome <user>");
-			System.out.println("1. Add Category");
-			System.out.println("2. Show Categories");
-			System.out.println("3. All Blogs");
-			System.out.println("4. Add Blog");
-			System.out.println("5. Edit Blog");
-			System.out.println("6. Search Blog");
-			System.out.println("7. Delete Blog");
-			System.out.println("8. Logout");
-		}
-		
 		public static void main(String[] args) {
 			Scanner sc = new Scanner(System.in);
 			int choice;
@@ -104,4 +179,17 @@ public class Main {
 			} while (choice != 0);
 		}
 
-}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
