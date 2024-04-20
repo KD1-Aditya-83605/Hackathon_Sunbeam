@@ -1,0 +1,8 @@
+package com.sunbeam.entity;
+
+public class DButil {
+	
+	private final String DB_URL;
+
+
+}

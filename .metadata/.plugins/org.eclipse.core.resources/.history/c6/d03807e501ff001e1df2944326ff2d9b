@@ -1,0 +1,40 @@
+package com.sunbeam.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.sunbeam.entity.User;
+import com.sunbeam.utils.DButil;
+
+public class RegistrationDao {
+	
+	Connection connection;
+	
+	public RegistrationDao() throws SQLException {
+		connection = DButil.getConnection();
+	}
+	
+	
+//	full_name    | varchar(50) | YES  |     | NULL    |                |
+//	| email        | varchar(20) | YES  |     | NULL    |                |
+//	| password     | varchar(20) | YES  |     | NULL    |                |
+//	| phone_number | varchar(10) | YES  |     | NULL    |                |
+//	| created_time | timestamp   | YES  |     | NULL 
+	
+	public void registerUser(User u) {
+		String sql = "insert into user values(?,?,?,?,?) ";
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+				
+	}
+
+}
